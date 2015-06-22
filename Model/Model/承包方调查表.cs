@@ -28,9 +28,24 @@ namespace Model
         public String 审核人 { get; set; }
         public String 审核日期 { get; set; }
         public String 审核意见 { get; set; }
-        public String 有承包地 { get { return 是否共有人 == "1" ? "1" : ""; } }
-        public String 无承包地 { get { return 是否共有人 == "1" ? "" : "1"; } }
+        public Object 有承包地 { get { return ToNumber(是否共有人 == "1", 1); } }
+        public Object 无承包地 { get { return ToNumber(是否共有人 != "1", 1); } }
 
         public List<承包方调查表> 所属家属列表 = new List<承包方调查表>();
+
+        public String 非在册户口
+        {
+            get
+            {
+                return 所属家属列表.All(p => p.备注 != "在册") ? "是" : "否";
+            }
+        }
+        public static Object ToNumber(Boolean boolValue, Object dataValue)
+        {
+            if (boolValue)
+                return dataValue;
+            else
+                return null;
+        }
     }
 }

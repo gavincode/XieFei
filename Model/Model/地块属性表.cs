@@ -27,25 +27,25 @@ namespace Model
         public String 造林年度 { get; set; }
         public String 林地使用期 { get; set; }
         public String 合同终止日期 { get; set; }
-        public String 备注
-        {
-            get
-            {
-                if (地块类别 == null) return String.Empty;
+        //public String 备注
+        //{
+        //    get
+        //    {
+        //        if (地块类别 == null) return String.Empty;
 
-                if (地块类别.ToLower() == "c")
-                    return "J";
-                else if (地块类别.ToLower() == "z")
-                    return "Z";
-                else if (地块类别.ToLower() == "q")
-                    return "Q";
+        //        if (地块类别.ToLower() == "c")
+        //            return "J";
+        //        else if (地块类别.ToLower() == "z")
+        //            return "Z";
+        //        else if (地块类别.ToLower() == "q")
+        //            return "Q";
 
-                return String.Empty;
-            }
-        }
-        public String 面积 { get; set; }
+        //        return String.Empty;
+        //    }
+        //}
+        public Decimal 面积 { get; set; }
 
-        public String 水田
+        public Object 水田
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Model
                 else return String.Empty;
             }
         }
-        public String 旱地
+        public Object 旱地
         {
             get
             {

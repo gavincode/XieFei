@@ -9,6 +9,6 @@ namespace Model
     {
         public String 承包方代表编码 { get; set; }
         public String 地块名称 { get; set; }
-        public String 面积 { get; set; }
+        public Decimal 面积 { get; set; }
     }
 }

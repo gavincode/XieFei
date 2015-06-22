@@ -28,7 +28,7 @@ namespace ExcelHandler
             Init();
 
             var 承包方调查表 = CommonBLL.承包方调查表();
-            var 二轮承包信息汇总表 = CommonBLL.二轮承包表();
+            var 二轮承包表 = CommonBLL.二轮承包表();
             var 地块属性表 = CommonBLL.地块属性表();
 
             foreach (var dkGroup in 地块属性表)
@@ -39,7 +39,7 @@ namespace ExcelHandler
 
                 var 承包方 = 承包方调查表[first地块.承包方代表编码];
 
-                var 二轮承包信息 = 二轮承包信息汇总表[first地块.承包方代表编码];
+                var 二轮承包信息 = 二轮承包表[first地块.承包方代表编码];
 
                 //封面
                 登记表.封面.承包方代表姓名.Fill(first地块.承包方代表姓名);
@@ -54,6 +54,7 @@ namespace ExcelHandler
                 登记表.登记簿1.行政区名称.Fill(first地块.行政区名称);
                 登记表.登记簿1.邮编.Fill(承包方.邮政编码);
                 登记表.登记簿1.证件号码.Fill(承包方.证件号码);
+                登记表.登记簿1.非在册户口.Fill(承包方.非在册户口);
 
                 登记表.登记簿1.Row11.Fill(承包方.所属家属列表, p => new List<Object>
                 {
@@ -62,15 +63,30 @@ namespace ExcelHandler
                     p.证件号码,
                     p.有承包地,
                     p.无承包地,
-                    p.备注 == "在册" ? "1" : String.Empty,
-                    p.备注 == "死亡" ? "1"  : String.Empty,
-                    p.备注 == "迁出" ? "1"  : String.Empty,
-                    p.备注
+                    ToNumber(p.备注 == "在册", 1), //? 1 : 0,
+                    ToNumber(p.备注 == "死亡", 1),  // : 0,
+                    ToNumber(p.备注 == "迁出", 1), //: 0,
+                    //p.备注
                 });
 
                 //登记簿2
                 var groupOther = dkGroup.Value.Where(p => (p.地块类别 ?? "").ToLower() != "z");
                 var groupZ = dkGroup.Value.Where(p => (p.地块类别 ?? "").ToLower() == "z");
+
+                Func<地块属性表, List<Object>> func = p => new List<Object>
+                {
+                    p.地块名称,
+                    p.地块编码,
+                    p.水田,
+                    p.旱地,
+                    "",
+                    p.面积,
+                    "",
+                    p.东至,
+                    p.南至,
+                    p.西至,
+                    p.北至
+                };
 
                 //若超过数量新增表单
                 if (groupOther.Count() > 18 || groupZ.Count() > 4)
@@ -80,37 +96,9 @@ namespace ExcelHandler
                     var row4 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 4, 3);
                     var row26 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 23, 3);
 
-                    row4.Fill(groupOther.Skip(18), p => new List<Object>
-                    {
-                        p.地块名称,
-                        p.地块编码,
-                        p.水田,
-                        p.旱地,
-                        "",
-                        p.面积,
-                        "",
-                        p.东至,
-                        p.南至,
-                        p.西至,
-                        p.北至,
-                        p.备注
-                    });
+                    row4.Fill(groupOther.Skip(18), func);
 
-                    row26.Fill(groupZ.Skip(4), p => new List<Object>
-                    {
-                        p.地块名称,
-                        p.地块编码,
-                        p.水田,
-                        p.旱地,
-                        "",
-                        p.面积,
-                        "",
-                        p.东至,
-                        p.南至,
-                        p.西至,
-                        p.北至,
-                        p.备注
-                    });
+                    row26.Fill(groupZ.Skip(4), func);
                 }
 
                 登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
@@ -119,37 +107,9 @@ namespace ExcelHandler
                     p.面积
                 });
 
-                登记表.登记簿2.Row4.Fill(groupOther.Take(18), p => new List<Object>
-                {
-                    p.地块名称,
-                    p.地块编码,
-                    p.水田,
-                    p.旱地,
-                    "",
-                    p.面积,
-                    "",
-                    p.东至,
-                    p.南至,
-                    p.西至,
-                    p.北至,
-                    p.备注
-                });
+                登记表.登记簿2.Row4.Fill(groupOther.Take(18), func);
 
-                登记表.登记簿2.Row23.Fill(groupZ.Take(4), p => new List<Object>
-                {
-                    p.地块名称,
-                    p.地块编码,
-                    p.水田,
-                    p.旱地,
-                    "",
-                    p.面积,
-                    "",
-                    p.东至,
-                    p.南至,
-                    p.西至,
-                    p.北至,
-                    p.备注
-                });
+                登记表.登记簿2.Row23.Fill(groupZ.Take(4), func);
 
                 ////计算公式
                 //登记表.Workbook.GetSheetAt(1).ForceFormulaRecalculation = true;
@@ -160,6 +120,14 @@ namespace ExcelHandler
                 登记表.Workbook.Write(newFile);
                 newFile.Close();
             }
+        }
+
+        public static Object ToNumber(Boolean boolValue, Object dataValue)
+        {
+            if (boolValue)
+                return dataValue;
+            else
+                return null;
         }
     }
 }
