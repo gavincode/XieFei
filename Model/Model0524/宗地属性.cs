@@ -23,6 +23,10 @@ namespace Model
         public String 北至 { get; set; }
         public String 批准用途 { get; set; }
         public String 实际用途 { get; set; }
+        public String 新证书号 { get; set; }
+        public String 原证面积 { get; set; }
+        public String 其他面积 { get; set; }
+        public String 晒坝面积 { get; set; }
         public String 批准面积 { get; set; }
         public String 宗地面积 { get; set; }
         public String 原证书号 { get; set; }
@@ -31,8 +35,25 @@ namespace Model
         {
             get
             {
-                return String.Format(@"经审查，该宗地申请登记的权属资料齐全且合法有效；地籍调查结果正确，四至清楚无争议，面积准确；权属性质为宅基地使用权，建议对该权利人，进行确权登记，登记面积为  {0}  平方米，其余   0.00   平方米为本集体经济组织其他建设用地。", this.批准面积);
+                return String.Format(@"经审查，该宗地申请登记的权属资料齐全且合法有效；地籍调查结果正确，四至清楚无争议，面积准确；权属性质为宅基地使用权，建议对该权利人，进行确权登记，登记面积为  {0}  平方米，其余   {1}   平方米为本集体经济组织其他建设用地。", this.批准面积, this.总面积 - ToInt32(this.批准面积));
             }
+        }
+
+        public Decimal 总面积
+        {
+            get
+            {
+                return ToInt32(this.宗地面积) + ToInt32(this.其他面积) + ToInt32(this.晒坝面积);
+            }
+        }
+
+        public Decimal ToInt32(String strNumber)
+        {
+            Decimal result = 0;
+
+            Decimal.TryParse(strNumber, out result);
+
+            return result;
         }
     }
 }

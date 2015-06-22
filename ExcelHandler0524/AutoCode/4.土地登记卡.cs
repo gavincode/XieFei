@@ -14,13 +14,13 @@ namespace Model
             private const String sheetName = "Sheet1";
             public static Cell 宗地代码 = new Cell(sheetName, 2, 2);
             public static Cell 图幅号 = new Cell(sheetName, 5, 2);
-            public static Cell 原证书号 = new Cell(sheetName, 11, 2);
             public static Cell 宗地面积 = new Cell(sheetName, 2, 3);
             public static Cell 土地坐落 = new Cell(sheetName, 5, 3);
             public static Cell 土地权利人 = new Cell(sheetName, 5, 4);
-            public static Cell 通讯地址 = new Cell(sheetName, 5, 6);
-            public static Cell 批准面积 = new Cell(sheetName, 5, 9);
             public static Cell 证件编号 = new Cell(sheetName, 5, 5);
+            public static Cell 通讯地址 = new Cell(sheetName, 5, 6);
+            public static Cell 新证书号 = new Cell(sheetName, 12, 7);
+            public static Cell 批准面积 = new Cell(sheetName, 5, 9);
         }
 
         public class Sheet2

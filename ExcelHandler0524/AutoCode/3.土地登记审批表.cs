@@ -12,6 +12,7 @@ namespace Model
         public class Sheet1
         {
             private const String sheetName = "Sheet1";
+            public static Cell 宗地代码 = new Cell(sheetName, 3, 2);
         }
 
         public class Sheet2
@@ -26,6 +27,7 @@ namespace Model
             public static Cell 宗地面积 = new Cell(sheetName, 3, 21);
             public static Cell 批准面积 = new Cell(sheetName, 3, 25);
             public static Cell 宗地代码1 = new Cell(sheetName, 3, 27);
+            public static Cell 原证书号 = new Cell(sheetName, 9, 27);
             public static Cell 核实面积文本 = new Cell(sheetName, 1, 60);
         }
 

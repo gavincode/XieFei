@@ -53,8 +53,7 @@ namespace ExcelHandler
                 土地登记申请书.Sheet1.证件编号.Fill(model.证件编号);
                 土地登记申请书.Sheet1.宗地代码.Fill(model.宗地代码);
                 土地登记申请书.Sheet1.土地坐落.Fill(model.土地坐落);
-                土地登记申请书.Sheet1.宗地面积.Fill(model.宗地面积);
-                土地登记申请书.Sheet1.土地权利人1.Fill(model.土地权利人);
+                土地登记申请书.Sheet1.原证面积.Fill(model.原证面积);
 
                 //地籍调查表
                 地籍调查表.Sheet1.土地权利人.Fill(model.土地权利人);
@@ -80,6 +79,8 @@ namespace ExcelHandler
                 地籍调查表.Sheet4.宗地面积.Fill(model.宗地面积);
 
                 //土地登记审批表
+                土地登记审批表.Sheet1.宗地代码.Fill(model.宗地代码);
+
                 土地登记审批表.Sheet2.土地权利人.Fill(model.土地权利人);
                 土地登记审批表.Sheet2.证件编号.Fill(model.证件编号);
                 土地登记审批表.Sheet2.通讯地址.Fill(model.通讯地址);
@@ -89,22 +90,23 @@ namespace ExcelHandler
                 土地登记审批表.Sheet2.宗地面积.Fill(model.宗地面积);
                 土地登记审批表.Sheet2.批准面积.Fill(model.批准面积);
                 土地登记审批表.Sheet2.宗地代码1.Fill(model.宗地代码);
+                土地登记审批表.Sheet2.原证书号.Fill(model.原证书号);
                 土地登记审批表.Sheet2.核实面积文本.Fill(model.核实面积文本);
 
                 //土地登记卡
                 土地登记卡.Sheet1.宗地代码.Fill(model.宗地代码);
                 土地登记卡.Sheet1.图幅号.Fill(model.图幅号);
-                土地登记卡.Sheet1.原证书号.Fill(model.原证书号);
                 土地登记卡.Sheet1.宗地面积.Fill(model.宗地面积);
                 土地登记卡.Sheet1.土地坐落.Fill(model.土地坐落);
                 土地登记卡.Sheet1.土地权利人.Fill(model.土地权利人);
                 土地登记卡.Sheet1.通讯地址.Fill(model.通讯地址);
                 土地登记卡.Sheet1.批准面积.Fill(model.批准面积);
                 土地登记卡.Sheet1.证件编号.Fill(model.证件编号);
+                土地登记卡.Sheet1.新证书号.Fill(model.新证书号);
 
                 //归户卡
                 归户卡.Sheet1.土地权利人.Fill(model.土地权利人);
-                归户卡.Sheet1.土地权利人1.Fill(model.土地权利人);
+                归户卡.Sheet1.通讯地址.Fill(model.通讯地址);
                 归户卡.Sheet1.证件编号.Fill(model.证件编号);
                 归户卡.Sheet1.宗地代码.Fill(model.宗地代码);
 
@@ -114,14 +116,14 @@ namespace ExcelHandler
                 { 
                     p.宗地代码,
                     p.图幅号,
-                    p.原证书号,
-                    p.原证书号,
+                    p.新证书号,
+                    p.新证书号,
                     p.土地坐落,
                     p.土地坐落,
                     "宅基地使用权",
                     "批准拨用宅基地",
                     "农村宅基地",
-                    p.宗地面积
+                    p.批准面积
                 };
 
                 归户卡.Sheet1.Row5.Fill(query, func);

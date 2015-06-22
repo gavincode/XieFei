@@ -15,7 +15,7 @@ namespace Model
             public static Cell 宗地代码 = new Cell(sheetName, 2, 1);
             public static Cell 土地权利人 = new Cell(sheetName, 3, 2);
             public static Cell 证件编号 = new Cell(sheetName, 11, 2);
-            public static Cell 土地权利人1 = new Cell(sheetName, 3, 3);
+            public static Cell 通讯地址 = new Cell(sheetName, 3, 3);
             public static Row Row5 = new Row(sheetName, 5, 3);
         }
 

@@ -58,8 +58,6 @@ namespace CodeGenerator
             TemplateHandler.Create(txtFilePath.Text);
 
             Process.Start(Path.GetDirectoryName(txtFilePath.Text));
-
-            this.Close();
         }
     }
 }
