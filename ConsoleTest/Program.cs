@@ -18,6 +18,7 @@ namespace ConsoleTest
             if (!CheckPermission()) return;
 
             Console.WriteLine("开始导入...");
+
             try
             {
                 Init();

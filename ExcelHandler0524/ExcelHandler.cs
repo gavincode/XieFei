@@ -126,7 +126,8 @@ namespace ExcelHandler
                     p.批准面积
                 };
 
-                归户卡.Sheet1.Row5.Fill(query, func);
+                if (model.证件编号 != null && model.证件编号 != "#N/A")
+                    归户卡.Sheet1.Row5.Fill(query, func);
 
                 var dir = Directory.CreateDirectory(String.Format("Data\\{0}-{1}", model.土地权利人, model.宗地代码));
                 var file1 = File.Create(Path.Combine(dir.FullName, "1.土地登记申请书.xls"));
