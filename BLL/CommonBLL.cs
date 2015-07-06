@@ -24,6 +24,8 @@ namespace BLL
             {
                 var 户主 = group.FirstOrDefault(p => p.家庭关系 == "户主");
 
+                if (group.Key == null || 户主 == null) continue;
+
                 foreach (var item in group)
                 {
                     //if (item.家庭关系 == "户主") continue;

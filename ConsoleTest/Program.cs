@@ -19,6 +19,24 @@ namespace ConsoleTest
 
             Console.WriteLine("开始导入...");
 
+#if DEBUG
+             Init();
+
+                if (dbFile == "地籍数据库")
+                {
+                    ExcelHandler.ExcelHandler0524.ExportTemplate();
+                }
+                else
+                {
+                    ExcelHandler.ExcelHandler.ExportTemplate();
+                }
+
+                Console.WriteLine("成功...");
+                System.Diagnostics.Process.Start("Data");
+#endif
+
+#if !DEBUG
+
             try
             {
                 Init();
@@ -41,11 +59,13 @@ namespace ConsoleTest
                 Console.WriteLine("按任意键停止...");
                 Console.ReadKey();
             }
+
+#endif
         }
 
         static Boolean CheckPermission()
         {
-            var macAddress = new List<String>() { "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "BFEBFBFF000306A9" };
+            var macAddress = new List<String>() { "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "74:D4:35:C9:9E:6F" };
 
             if (!macAddress.Contains(Computer.Instance.MacAddress))
             {

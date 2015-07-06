@@ -37,9 +37,11 @@ namespace ExcelHandler
 
                 var first地块 = dkGroup.Value.First();
 
+                if (!承包方调查表.ContainsKey(first地块.承包方代表编码)) continue;
+
                 var 承包方 = 承包方调查表[first地块.承包方代表编码];
 
-                var 二轮承包信息 = 二轮承包表[first地块.承包方代表编码];
+                var 二轮承包信息 = 二轮承包表.ContainsKey(first地块.承包方代表编码) ? 二轮承包表[first地块.承包方代表编码] : null;
 
                 //封面
                 登记表.封面.承包方代表姓名.Fill(first地块.承包方代表姓名);
@@ -101,11 +103,15 @@ namespace ExcelHandler
                     row26.Fill(groupZ.Skip(4), func);
                 }
 
-                登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
+                if (二轮承包信息 != null)
                 {
-                    p.地块名称,
-                    p.面积
-                });
+                    登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
+                    {
+                        p.地块名称,
+                        p.面积
+                    });
+                }
+
 
                 登记表.登记簿2.Row4.Fill(groupOther.Take(18), func);
 
