@@ -31,13 +31,17 @@ namespace ExcelHandler
             var 二轮承包表 = CommonBLL.二轮承包表();
             var 地块属性表 = CommonBLL.地块属性表();
 
-            foreach (var dkGroup in 地块属性表)
+            foreach (var dkGroup in 地块属性表.OrderBy(p => p.Key))
             {
                 登记表.Workbook = WorkbookFactory.Create(templateFile);
 
                 var first地块 = dkGroup.Value.First();
 
-                if (!承包方调查表.ContainsKey(first地块.承包方代表编码)) continue;
+                if (!承包方调查表.ContainsKey(first地块.承包方代表编码))
+                {
+                    Console.WriteLine(String.Format("承包方代表编码为:{0} 的承包方信息在承包方调查表中不存在! [已跳过]", first地块.承包方代表编码));
+                    continue;
+                }
 
                 var 承包方 = 承包方调查表[first地块.承包方代表编码];
 
@@ -125,6 +129,8 @@ namespace ExcelHandler
                 var newFile = File.Create(String.Format(file, first地块.承包方代表姓名));
                 登记表.Workbook.Write(newFile);
                 newFile.Close();
+
+                Console.WriteLine(String.Format("承包方代表编码为:{0}的信息导出成功!", first地块.承包方代表编码));
             }
         }
 
