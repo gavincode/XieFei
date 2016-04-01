@@ -22,7 +22,7 @@ namespace BLL
             List<承包方调查表> list = new List<承包方调查表>();
             foreach (var group in dataList.GroupBy(p => p.承包方代表编码))
             {
-                var 户主 = group.FirstOrDefault(p => p.家庭关系 == "户主");
+                var 户主 = group.FirstOrDefault(p => p.家庭关系.Trim() == "户主");
 
                 foreach (var item in group)
                 {

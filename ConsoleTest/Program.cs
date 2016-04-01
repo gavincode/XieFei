@@ -38,6 +38,7 @@ namespace ConsoleTest
             catch (Exception ex)
             {
                 Console.WriteLine("异常信息: " + ex.Message);
+                Console.WriteLine("异常信息: " + ex.StackTrace);
                 Console.WriteLine("按任意键停止...");
                 Console.ReadKey();
             }
@@ -45,7 +46,7 @@ namespace ConsoleTest
 
         static Boolean CheckPermission()
         {
-            var macAddress = new List<String>() { "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "BFEBFBFF000306A9" };
+            var macAddress = new List<String>() { "34:E6:AD:0A:8F:AC", "54:04:A6:93:FF:0F", "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "AC:D1:B8:48:AF:53", "BFEBFBFF000306A9" };
 
             if (!macAddress.Contains(Computer.Instance.MacAddress))
             {
@@ -57,7 +58,7 @@ namespace ConsoleTest
 
         static void Init()
         {
-            var dbfiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory).Where(p => p.EndsWith(".mdb"));
+            var dbfiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory).Where(p => p.ToLower().EndsWith(".mdb"));
 
             if (dbfiles.Count() != 1)
             {

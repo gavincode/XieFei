@@ -67,7 +67,7 @@ namespace Model
         {
             get
             {
-                return this.发包方编码 + this.承包方代表编码 + "J";
+                return this.承包方代表编码 + "J";
             }
         }
     }

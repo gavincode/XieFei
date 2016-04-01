@@ -37,9 +37,19 @@ namespace ExcelHandler
 
                 var first地块 = dkGroup.Value.First();
 
+                if (!承包方调查表.ContainsKey(first地块.承包方代表编码))
+                {
+                    continue;
+                    throw new Exception(String.Format("承包方调查表中不存在承包方编码为{0}的数据。", first地块.承包方代表编码));
+                }
+
                 var 承包方 = 承包方调查表[first地块.承包方代表编码];
 
-                var 二轮承包信息 = 二轮承包表[first地块.承包方代表编码];
+                var 二轮承包信息 = new List<二轮承包表>();
+                if (二轮承包表.ContainsKey(first地块.承包方代表编码))
+                {
+                    二轮承包信息 = 二轮承包表[first地块.承包方代表编码];
+                }
 
                 //封面
                 登记表.封面.承包方代表姓名.Fill(first地块.承包方代表姓名);
@@ -96,9 +106,27 @@ namespace ExcelHandler
                     var row4 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 4, 3);
                     var row26 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 23, 3);
 
-                    row4.Fill(groupOther.Skip(18), func);
+                    row4.Fill(groupOther.Skip(18).Take(18), func);
 
-                    row26.Fill(groupZ.Skip(4), func);
+                    row26.Fill(groupZ.Skip(4).Take(4), func);
+                }
+
+                //若超过数量新增表单...
+                if (groupOther.Count() > 36 || groupZ.Count() > 8)
+                {
+                    ISheet newSheet = 登记表.Workbook.CloneSheet(2);
+
+                    var row4 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 4, 3);
+                    var row26 = new Excel.Export.AutoCode.登记表.Row(newSheet.SheetName, 23, 3);
+
+                    row4.Fill(groupOther.Skip(36).Take(18), func);
+
+                    row26.Fill(groupZ.Skip(8).Take(4), func);
+                }
+
+                if (groupOther.Count() > 54 || groupZ.Count() > 12)
+                {
+                    Console.WriteLine("承包方代表编码为：{0} 的承包地或自留地太多， 未处理完。。。", 承包方.承包方代表编码);
                 }
 
                 登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
@@ -116,7 +144,7 @@ namespace ExcelHandler
                 //登记表.Workbook.GetSheetAt(2).ForceFormulaRecalculation = true;
 
                 //导出文件
-                var newFile = File.Create(String.Format(file, first地块.承包方代表姓名));
+                var newFile = File.Create(String.Format(file, first地块.承包方代表编码));
                 登记表.Workbook.Write(newFile);
                 newFile.Close();
             }

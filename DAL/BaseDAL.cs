@@ -12,10 +12,20 @@ namespace DAL
 
         public static OleDbConnection getConn()
         {
-
             string connstr = "Provider=Microsoft.ACE.OLEDB.12.0;Persist Security Info=False;Data Source=" + DbFile;
+
             OleDbConnection tempconn = new OleDbConnection(connstr);
-            return (tempconn);
+
+            try
+            {
+                tempconn.Open();
+            }
+            catch (Exception)
+            {
+                tempconn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DbFile;
+            }
+
+            return tempconn;
         }
     }
 }
