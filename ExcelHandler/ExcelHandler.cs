@@ -31,7 +31,7 @@ namespace ExcelHandler
             var 二轮承包表 = CommonBLL.二轮承包表();
             var 地块属性表 = CommonBLL.地块属性表();
 
-            foreach (var dkGroup in 地块属性表)
+            foreach (var dkGroup in 地块属性表.OrderBy(p => p.Key))
             {
                 登记表.Workbook = WorkbookFactory.Create(templateFile);
 
@@ -39,17 +39,13 @@ namespace ExcelHandler
 
                 if (!承包方调查表.ContainsKey(first地块.承包方代表编码))
                 {
+                    Console.WriteLine(String.Format("承包方代表编码为:{0} 的承包方信息在承包方调查表中不存在! [已跳过]", first地块.承包方代表编码));
                     continue;
-                    throw new Exception(String.Format("承包方调查表中不存在承包方编码为{0}的数据。", first地块.承包方代表编码));
                 }
 
                 var 承包方 = 承包方调查表[first地块.承包方代表编码];
 
-                var 二轮承包信息 = new List<二轮承包表>();
-                if (二轮承包表.ContainsKey(first地块.承包方代表编码))
-                {
-                    二轮承包信息 = 二轮承包表[first地块.承包方代表编码];
-                }
+                var 二轮承包信息 = 二轮承包表.ContainsKey(first地块.承包方代表编码) ? 二轮承包表[first地块.承包方代表编码] : null;
 
                 //封面
                 登记表.封面.承包方代表姓名.Fill(first地块.承包方代表姓名);
@@ -129,11 +125,15 @@ namespace ExcelHandler
                     Console.WriteLine("承包方代表编码为：{0} 的承包地或自留地太多， 未处理完。。。", 承包方.承包方代表编码);
                 }
 
-                登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
+                if (二轮承包信息 != null)
                 {
-                    p.地块名称,
-                    p.面积
-                });
+                    登记表.登记簿2.Row4a.Fill(二轮承包信息, p => new List<Object>
+                    {
+                        p.地块名称,
+                        p.面积
+                    });
+                }
+
 
                 登记表.登记簿2.Row4.Fill(groupOther.Take(18), func);
 
@@ -147,6 +147,8 @@ namespace ExcelHandler
                 var newFile = File.Create(String.Format(file, first地块.承包方代表编码));
                 登记表.Workbook.Write(newFile);
                 newFile.Close();
+
+                Console.WriteLine(String.Format("承包方代表编码为:{0}的信息导出成功!", first地块.承包方代表编码));
             }
         }
 

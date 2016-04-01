@@ -19,6 +19,26 @@ namespace ConsoleTest
 
             Console.WriteLine("开始导入...");
 
+#if DEBUG
+             Init();
+
+                if (dbFile == "地籍数据库")
+                {
+                    ExcelHandler.ExcelHandler0524.ExportTemplate();
+                }
+                else
+                {
+                    ExcelHandler.ExcelHandler.ExportTemplate();
+                }
+
+                Console.WriteLine("成功...");
+                Console.WriteLine("按任意键停止并打开数据文件...");
+                Console.ReadKey();
+                System.Diagnostics.Process.Start("Data");
+#endif
+
+#if !DEBUG
+
             try
             {
                 Init();
@@ -32,7 +52,9 @@ namespace ConsoleTest
                     ExcelHandler.ExcelHandler.ExportTemplate();
                 }
 
-                Console.WriteLine("成功...");
+                Console.WriteLine("导出成功!");
+                Console.WriteLine("按任意键停止并打开数据文件...");
+                Console.ReadKey();
                 System.Diagnostics.Process.Start("Data");
             }
             catch (Exception ex)
@@ -42,6 +64,8 @@ namespace ConsoleTest
                 Console.WriteLine("按任意键停止...");
                 Console.ReadKey();
             }
+
+#endif
         }
 
         static Boolean CheckPermission()
