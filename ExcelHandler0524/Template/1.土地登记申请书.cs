@@ -16,7 +16,8 @@ public static Cell 土地权利人 = new Cell(sheetName, 3, 6);
 public static Cell 证件编号 = new Cell(sheetName, 3, 8);
 public static Cell 通讯地址 = new Cell(sheetName, 3, 10);
 public static Cell 土地坐落 = new Cell(sheetName, 3, 26);
-public static Cell 宗地面积 = new Cell(sheetName, 3, 27);
+public static Cell 原证面积 = new Cell(sheetName, 3, 27);
+public static Cell 原证书号 = new Cell(sheetName, 1, 40);
 }
 
  public class Cell

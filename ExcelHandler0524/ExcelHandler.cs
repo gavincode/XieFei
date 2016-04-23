@@ -55,6 +55,19 @@ namespace ExcelHandler
                 土地登记申请书.Sheet1.土地坐落.Fill(model.土地坐落);
                 土地登记申请书.Sheet1.原证面积.Fill(model.原证面积);
 
+                var replaceContent = "#                      原证书号";
+
+                model.原证书号 = model.原证书号 ?? "";
+
+                var tempLength = Encoding.Default.GetByteCount(replaceContent);
+
+                var realLength = Encoding.Default.GetByteCount(model.原证书号) - model.原证书号.Length;
+
+                var content = 土地登记申请书.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
+
+
+                土地登记申请书.Sheet1.原证书号.Fill(content);
+
                 //地籍调查表
                 地籍调查表.Sheet1.土地权利人.Fill(model.土地权利人);
                 地籍调查表.Sheet1.宗地代码1.Fill(model.宗地代码);
