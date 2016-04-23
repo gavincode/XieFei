@@ -129,24 +129,32 @@ namespace ExcelHandler
                 if (model.证件编号 != null && model.证件编号 != "#N/A")
                     归户卡.Sheet1.Row5.Fill(query, func);
 
-                var dir = Directory.CreateDirectory(String.Format("Data\\{0}-{1}", model.土地权利人, model.宗地代码));
-                var file1 = File.Create(Path.Combine(dir.FullName, "1.土地登记申请书.xls"));
-                var file2 = File.Create(Path.Combine(dir.FullName, "2.地籍调查表.xls"));
-                var file3 = File.Create(Path.Combine(dir.FullName, "3.土地登记审批表.xls"));
-                var file4 = File.Create(Path.Combine(dir.FullName, "4.土地登记卡.xls"));
-                var file5 = File.Create(Path.Combine(dir.FullName, "5.归户卡.xls"));
+                try
+                {
+                    var dir = Directory.CreateDirectory(String.Format("Data\\{0}-{1}", model.土地权利人, model.宗地代码));
+                    var file1 = File.Create(Path.Combine(dir.FullName, "1.土地登记申请书.xls"));
+                    var file2 = File.Create(Path.Combine(dir.FullName, "2.地籍调查表.xls"));
+                    var file3 = File.Create(Path.Combine(dir.FullName, "3.土地登记审批表.xls"));
+                    var file4 = File.Create(Path.Combine(dir.FullName, "4.土地登记卡.xls"));
+                    var file5 = File.Create(Path.Combine(dir.FullName, "5.归户卡.xls"));
 
-                土地登记申请书.Workbook.Write(file1);
-                地籍调查表.Workbook.Write(file2);
-                土地登记审批表.Workbook.Write(file3);
-                土地登记卡.Workbook.Write(file4);
-                归户卡.Workbook.Write(file5);
+                    土地登记申请书.Workbook.Write(file1);
+                    地籍调查表.Workbook.Write(file2);
+                    土地登记审批表.Workbook.Write(file3);
+                    土地登记卡.Workbook.Write(file4);
+                    归户卡.Workbook.Write(file5);
 
-                file1.Close();
-                file2.Close();
-                file3.Close();
-                file4.Close();
-                file5.Close();
+                    file1.Close();
+                    file2.Close();
+                    file3.Close();
+                    file4.Close();
+                    file5.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("宗地代码[{0}],土地权利人:[{1}]的数据导入失败，请检查数据。", model.宗地代码, model.土地权利人);
+                    continue;
+                }
             }
         }
     }
