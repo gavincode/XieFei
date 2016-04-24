@@ -21,6 +21,7 @@ namespace Model
             public static Cell 通讯地址 = new Cell(sheetName, 5, 6);
             public static Cell 新证书号 = new Cell(sheetName, 12, 7);
             public static Cell 批准面积 = new Cell(sheetName, 5, 9);
+            public static Cell 原证书号 = new Cell(sheetName, 2, 13);
         }
 
         public class Sheet2
@@ -45,6 +46,10 @@ namespace Model
             public void Fill(Object value)
             {
                 SetCellValue(Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X), value);
+            }
+            public String GetValue()
+            {
+                return Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X).StringCellValue;
             }
         }
 

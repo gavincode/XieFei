@@ -63,10 +63,14 @@ namespace ExcelHandler
 
                 var realLength = Encoding.Default.GetByteCount(model.原证书号) - model.原证书号.Length;
 
-                var content = 土地登记申请书.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
+                var content1 = 土地登记申请书.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
+                var content2 = 土地登记审批表.Sheet2.原证书号1.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
+                var content3 = 土地登记卡.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
 
 
-                土地登记申请书.Sheet1.原证书号.Fill(content);
+                土地登记申请书.Sheet1.原证书号.Fill(content1);
+                土地登记审批表.Sheet2.原证书号1.Fill(content2);
+                土地登记卡.Sheet1.原证书号.Fill(content3);
 
                 //地籍调查表
                 地籍调查表.Sheet1.土地权利人.Fill(model.土地权利人);
@@ -139,12 +143,14 @@ namespace ExcelHandler
                     p.批准面积
                 };
 
-                if (model.证件编号 != null && model.证件编号 != "#N/A")
-                    归户卡.Sheet1.Row5.Fill(query, func);
 
                 try
                 {
-                    var dir = Directory.CreateDirectory(String.Format("Data\\{0}-{1}", model.土地权利人, model.宗地代码));
+
+                    if (!String.IsNullOrEmpty(model.证件编号) && model.证件编号 != "#N/A")
+                        归户卡.Sheet1.Row5.Fill(query, func);
+
+                    var dir = Directory.CreateDirectory(String.Format("Data\\{0}", model.宗地代码));
                     var file1 = File.Create(Path.Combine(dir.FullName, "1.土地登记申请书.xls"));
                     var file2 = File.Create(Path.Combine(dir.FullName, "2.地籍调查表.xls"));
                     var file3 = File.Create(Path.Combine(dir.FullName, "3.土地登记审批表.xls"));
@@ -166,9 +172,16 @@ namespace ExcelHandler
                 catch (Exception ex)
                 {
                     Console.WriteLine("宗地代码[{0}],土地权利人:[{1}]的数据导入失败，请检查数据。", model.宗地代码, model.土地权利人);
+                    Console.WriteLine("错误信息：" + ex.Message + Environment.NewLine + ex.StackTrace);
+                    Console.WriteLine("继续导出中，请稍等。。。");
                     continue;
                 }
             }
+        }
+
+        private static void ReplaceContent()
+        {
+
         }
     }
 }
