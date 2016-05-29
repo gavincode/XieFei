@@ -91,7 +91,8 @@ namespace ExcelHandler
                     p.东至,
                     p.南至,
                     p.西至,
-                    p.北至
+                    p.北至,
+                    p.备注
                 };
 
                 //若超过数量新增表单
