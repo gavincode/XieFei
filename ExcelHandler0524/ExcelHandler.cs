@@ -143,12 +143,13 @@ namespace ExcelHandler
                     p.批准面积
                 };
 
-
                 try
                 {
 
                     if (!String.IsNullOrEmpty(model.证件编号) && model.证件编号 != "#N/A")
                         归户卡.Sheet1.Row5.Fill(query, func);
+                    else
+                        归户卡.Sheet1.Row5.Fill(宗地属性.Where(p => p.宗地代码 == model.宗地代码), func);
 
                     var dir = Directory.CreateDirectory(String.Format("Data\\{0}", model.宗地代码));
                     var file1 = File.Create(Path.Combine(dir.FullName, "1.土地登记申请书.xls"));
@@ -168,6 +169,8 @@ namespace ExcelHandler
                     file3.Close();
                     file4.Close();
                     file5.Close();
+
+                    Console.WriteLine(String.Format("宗地代码:{0}的数据导出成功!", model.宗地代码));
                 }
                 catch (Exception ex)
                 {

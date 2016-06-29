@@ -70,7 +70,7 @@ namespace ConsoleTest
 
         static Boolean CheckPermission()
         {
-            var macAddress = new List<String>() { "34:E6:AD:0A:8F:AC", "54:04:A6:93:FF:0F", "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "AC:D1:B8:48:AF:53", "BFEBFBFF000306A9" };
+            var macAddress = new List<String>() { "34:E6:AD:0A:8F:AC", "28:D2:44:60:92:5A", "54:04:A6:93:FF:0F", "48:5A:B6:92:DB:65", "48:5D:60:56:F3:B6", "AC:D1:B8:48:AF:53", "BFEBFBFF000306A9" };
 
             if (!macAddress.Contains(Computer.Instance.MacAddress))
             {
