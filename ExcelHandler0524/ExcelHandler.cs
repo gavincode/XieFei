@@ -64,12 +64,12 @@ namespace ExcelHandler
                 var realLength = Encoding.Default.GetByteCount(model.原证书号) - model.原证书号.Length;
 
                 var content1 = 土地登记申请书.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
-                var content2 = 土地登记审批表.Sheet2.原证书号1.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
+                var content2 = 土地登记审批表.Sheet1.原证书号1.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
                 var content3 = 土地登记卡.Sheet1.原证书号.GetValue().Replace(replaceContent, model.原证书号.PadRight(tempLength - realLength, ' '));
 
 
                 土地登记申请书.Sheet1.原证书号.Fill(content1);
-                土地登记审批表.Sheet2.原证书号1.Fill(content2);
+                土地登记审批表.Sheet1.原证书号1.Fill(content2);
                 土地登记卡.Sheet1.原证书号.Fill(content3);
 
                 //地籍调查表
@@ -96,19 +96,18 @@ namespace ExcelHandler
                 地籍调查表.Sheet4.宗地面积.Fill(model.宗地面积);
 
                 //土地登记审批表
+                土地登记审批表.Sheet1.土地权利人.Fill(model.土地权利人);
+                土地登记审批表.Sheet1.证件编号.Fill(model.证件编号);
+                土地登记审批表.Sheet1.通讯地址.Fill(model.通讯地址);
                 土地登记审批表.Sheet1.宗地代码.Fill(model.宗地代码);
-
-                土地登记审批表.Sheet2.土地权利人.Fill(model.土地权利人);
-                土地登记审批表.Sheet2.证件编号.Fill(model.证件编号);
-                土地登记审批表.Sheet2.通讯地址.Fill(model.通讯地址);
-                土地登记审批表.Sheet2.宗地代码.Fill(model.宗地代码);
-                土地登记审批表.Sheet2.图幅号.Fill(model.图幅号);
-                土地登记审批表.Sheet2.土地坐落.Fill(model.土地坐落);
-                土地登记审批表.Sheet2.宗地面积.Fill(model.宗地面积);
-                土地登记审批表.Sheet2.批准面积.Fill(model.批准面积);
-                土地登记审批表.Sheet2.宗地代码1.Fill(model.宗地代码);
-                土地登记审批表.Sheet2.原证书号.Fill(model.原证书号);
-                土地登记审批表.Sheet2.核实面积文本.Fill(model.核实面积文本);
+                土地登记审批表.Sheet1.图幅号.Fill(model.图幅号);
+                土地登记审批表.Sheet1.土地坐落.Fill(model.土地坐落);
+                土地登记审批表.Sheet1.宗地面积.Fill(model.宗地面积);
+                土地登记审批表.Sheet1.批准面积.Fill(model.批准面积);
+                土地登记审批表.Sheet1.宗地代码1.Fill(model.宗地代码);
+                土地登记审批表.Sheet1.宗地代码2.Fill(model.宗地代码);
+                土地登记审批表.Sheet1.原证书号.Fill(model.原证书号);
+                土地登记审批表.Sheet1.核实面积文本.Fill(model.核实面积文本);
 
                 //土地登记卡
                 土地登记卡.Sheet1.宗地代码.Fill(model.宗地代码);

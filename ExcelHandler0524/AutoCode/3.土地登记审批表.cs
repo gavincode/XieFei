@@ -12,24 +12,24 @@ namespace Model
         public class Sheet1
         {
             private const String sheetName = "Sheet1";
-            public static Cell 宗地代码 = new Cell(sheetName, 3, 2);
+            public static Cell 宗地代码 = new Cell(sheetName, 8, 2);
+            public static Cell 土地权利人 = new Cell(sheetName, 3, 50);
+            public static Cell 证件编号 = new Cell(sheetName, 3, 52);
+            public static Cell 通讯地址 = new Cell(sheetName, 3, 54);
+            public static Cell 宗地代码1 = new Cell(sheetName, 3, 64);
+            public static Cell 图幅号 = new Cell(sheetName, 9, 64);
+            public static Cell 土地坐落 = new Cell(sheetName, 3, 65);
+            public static Cell 宗地面积 = new Cell(sheetName, 3, 66);
+            public static Cell 批准面积 = new Cell(sheetName, 3, 70);
+            public static Cell 宗地代码2 = new Cell(sheetName, 3, 72);
+            public static Cell 原证书号 = new Cell(sheetName, 9, 72);
+            public static Cell 原证书号1 = new Cell(sheetName, 1, 88);
+            public static Cell 核实面积文本 = new Cell(sheetName, 1, 105);
         }
 
         public class Sheet2
         {
             private const String sheetName = "Sheet2";
-            public static Cell 土地权利人 = new Cell(sheetName, 3, 5);
-            public static Cell 证件编号 = new Cell(sheetName, 3, 7);
-            public static Cell 通讯地址 = new Cell(sheetName, 3, 9);
-            public static Cell 宗地代码 = new Cell(sheetName, 3, 19);
-            public static Cell 图幅号 = new Cell(sheetName, 9, 19);
-            public static Cell 土地坐落 = new Cell(sheetName, 3, 20);
-            public static Cell 宗地面积 = new Cell(sheetName, 3, 21);
-            public static Cell 批准面积 = new Cell(sheetName, 3, 25);
-            public static Cell 宗地代码1 = new Cell(sheetName, 3, 27);
-            public static Cell 原证书号 = new Cell(sheetName, 9, 27);
-            public static Cell 原证书号1 = new Cell(sheetName, 1, 43);
-            public static Cell 核实面积文本 = new Cell(sheetName, 1, 60);
         }
 
         public class Cell
