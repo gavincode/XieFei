@@ -24,7 +24,21 @@ namespace Model
         public String 批准用途 { get; set; }
         public String 实际用途 { get; set; }
         public String 新证书号 { get; set; }
-        public String 原证面积 { get; set; }
+
+        private String yzmj = string.Empty;
+        public String 原证面积
+        {
+            get
+            {
+                if (yzmj == "0") return string.Empty;
+
+                return yzmj;
+            }
+            set
+            {
+                yzmj = value;
+            }
+        }
         public String 其他面积 { get; set; }
         public String 晒坝面积 { get; set; }
         public String 批准面积 { get; set; }
