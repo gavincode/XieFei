@@ -12,7 +12,7 @@ namespace Model
         public class Sheet1
         {
             private const String sheetName = "Sheet1";
-            public static Cell 宗地代码 = new Cell(sheetName, 8, 2);
+            public static Cell 宗地代码 = new Cell(sheetName, 7, 2);
             public static Cell 土地权利人 = new Cell(sheetName, 3, 50);
             public static Cell 证件编号 = new Cell(sheetName, 3, 52);
             public static Cell 通讯地址 = new Cell(sheetName, 3, 54);

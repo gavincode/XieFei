@@ -5,47 +5,18 @@ using System.Text;
 using NPOI.SS.UserModel;
 
 namespace Model {
-public class 登记表
+public class 土地登记申请书
 {
 public static IWorkbook Workbook { get; set; }
-public class 封面
+public class Sheet1
 {
-private const String sheetName = "封面";
-public static Cell 行政区名称 = new Cell(sheetName, 2, 1);
-public static Cell 承包方代表姓名 = new Cell(sheetName, 2, 2);
-public static Cell 个体编码 = new Cell(sheetName, 2, 3);
-}
-
-public class 登记簿1
-{
-private const String sheetName = "登记簿1";
-public static Cell 个体编码 = new Cell(sheetName, 2, 1);
-public static Cell 行政区名称 = new Cell(sheetName, 2, 2);
-public static Cell 承包方代表姓名 = new Cell(sheetName, 2, 3);
-public static Cell 邮编 = new Cell(sheetName, 7, 3);
-public static Cell 证件号码 = new Cell(sheetName, 2, 4);
-public static Cell 非在册户口 = new Cell(sheetName, 8, 4);
-public static Cell 承包方地址 = new Cell(sheetName, 2, 5);
-public static Cell 个体编码1 = new Cell(sheetName, 2, 6);
-public static Row  Row11 = new Row(sheetName, 11, 0);
-public static Row  Row26 = new Row(sheetName, 26, 0);
-}
-
-public class 登记簿2
-{
-private const String sheetName = "登记簿2";
-public static Row  Row4 = new Row(sheetName, 4, 3);
-public static Row  Row23 = new Row(sheetName, 23, 3);
-}
-
-public class 登记簿3
-{
-private const String sheetName = "登记簿3";
-}
-
-public class 登记簿四附农户地块示意图
-{
-private const String sheetName = "登记簿（四）附农户地块示意图";
+private const String sheetName = "Sheet1";
+public static Cell 宗地代码 = new Cell(sheetName, 1, 1);
+public static Cell 土地权利人 = new Cell(sheetName, 3, 6);
+public static Cell 证件编号 = new Cell(sheetName, 3, 8);
+public static Cell 通讯地址 = new Cell(sheetName, 3, 10);
+public static Cell 土地坐落 = new Cell(sheetName, 3, 26);
+public static Cell 原证面积 = new Cell(sheetName, 3, 27);
 }
 
  public class Cell
@@ -60,6 +31,10 @@ private const String sheetName = "登记簿（四）附农户地块示意图";
             public void Fill(Object value)
             {
                 SetCellValue(Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X), value);
+            }
+            public String GetValue()
+            {
+                return Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X).StringCellValue;
             }
         }
 

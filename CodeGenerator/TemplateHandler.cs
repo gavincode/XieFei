@@ -13,7 +13,7 @@ namespace CodeGenerator
     {
         const String CellPrefix = "#";
         const String TableCellPrefix = "&";
-        static Regex strRegex = new Regex(String.Format(@"(?<={0})([\w]+)", CellPrefix));
+        static Regex strRegex = new Regex(String.Format(@"(?<={0}\b*?)([\w]+)", CellPrefix));
         static Regex strTableRegex = new Regex(String.Format(@"(?<={0})([\w]+)", TableCellPrefix));
         static Regex numRegex = new Regex(@"(?<=[\w]+)([0-9]+)");
 
@@ -44,7 +44,7 @@ namespace CodeGenerator
             codeBuilder.AppendLine("using NPOI.SS.UserModel;");
             codeBuilder.AppendLine("");
             codeBuilder.AppendLine("namespace Model {");
-            codeBuilder.AppendLine(String.Format("public class {0}", Path.GetFileNameWithoutExtension(file)));
+            codeBuilder.AppendLine(String.Format("public class {0}", TrimFileName(Path.GetFileNameWithoutExtension(file))));
             codeBuilder.AppendLine("{");
             codeBuilder.AppendLine("public static IWorkbook Workbook { get; set; }");
 
@@ -185,6 +185,10 @@ namespace CodeGenerator
             codeBuilder.AppendLine("            {");
             codeBuilder.AppendLine("                SetCellValue(Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X), value);");
             codeBuilder.AppendLine("            }");
+            codeBuilder.AppendLine("            public String GetValue()");
+            codeBuilder.AppendLine("            {");
+            codeBuilder.AppendLine("                return Workbook.GetSheet(SheetName).GetRow(Y).GetCell(X).StringCellValue;");
+            codeBuilder.AppendLine("            }");
             codeBuilder.AppendLine("        }");
 
             return codeBuilder.ToString();
@@ -266,6 +270,13 @@ namespace CodeGenerator
             return codeBuilder.ToString();
         }
 
+        private static String TrimFileName(String fileName)
+        {
+            var array = fileName.Split('.');
+
+            return array.Length == 2 ? array[1] : fileName;
+        }
+
         public class Point
         {
             public int X { get; set; }
@@ -277,7 +288,5 @@ namespace CodeGenerator
                 Y = y;
             }
         }
-
-
     }
 }
